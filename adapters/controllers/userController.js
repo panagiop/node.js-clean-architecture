@@ -26,16 +26,16 @@ export default function PostController(UserRepository, UserRepositoryImplementat
       .catch((error) => next(error));
   };
   
-	const addNewUser = (req, res, next) => {
+  const addNewUser = (req, res, next) => {
     const { username, password, email, role, createdAt } = req.body;
     AddUser(username, password, email, role, createdAt, repository)
       .then(() => res.json('user added'))
       .catch((error) => next(error));
-	};
-	
-	return {
+  };
+  
+  return {
     fetchUserByProperty,
-		fetchUserById,
-		addNewUser
+    fetchUserById,
+    addNewUser
 	}
 }
