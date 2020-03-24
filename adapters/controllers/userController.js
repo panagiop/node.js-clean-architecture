@@ -37,5 +37,5 @@ export default function PostController(UserRepository, UserRepositoryImplementat
     fetchUserByProperty,
     fetchUserById,
     addNewUser
-	}
+  }
 }
