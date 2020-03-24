@@ -1,6 +1,6 @@
 import User from '../../../src/entities/user';
 
-export default function addUser(
+export default function AddUser(
   username,
   password,
   email,
