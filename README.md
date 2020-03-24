@@ -2,7 +2,7 @@
 A use case of Clean Architecture in Node.js
 
 ## Overview
-This example is a simple CRUD API application in which a user can create / delete / find a post, by using the *Clean Architecture*.
+This example is a simple CRUD API application in which a user can create / update / delete / find a post, by using the *Clean Architecture*.
 
 The objective of *Clean Architecture* by [Robert C. Martin] is the separation of concerns in software. 
 This separation is achieved by dividing the software into layers. Each layer is encapsulated by a higher level layer and the way to communicate between the layers is with the *Dependency Rule*.
