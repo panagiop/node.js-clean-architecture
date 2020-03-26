@@ -2,7 +2,7 @@
 A use case of Clean Architecture in Node.js
 
 ## Overview
-This example is a simple CRUD API application in which a user can create / delete / find a post, by using the *Clean Architecture*.
+This example is a simple CRUD API application in which a user can create / update / delete / find a post, by using the *Clean Architecture*.
 
 The objective of *Clean Architecture* by [Robert C. Martin] is the separation of concerns in software. 
 This separation is achieved by dividing the software into layers. Each layer is encapsulated by a higher level layer and the way to communicate between the layers is with the *Dependency Rule*.
@@ -14,7 +14,7 @@ This rule says that nothing in an inner circle can know anything at all about so
 ### Entities
 Contains all the business entities an application consists of. In our example the *User* and the *Post*.
 ### Use Cases
-Contains application specific business rules. These use cases orchestrate the flow of data to and from the entities. In our example some of the use cases are: add post, add user, delete post, delete user etc.
+Contains application specific business rules. These use cases orchestrate the flow of data to and from the entities. In our example some of the use cases are: *AddPost*, *AddUser*, *DeleteById* etc.
 ### Interface Adapters
 This layer is a set of adapters (controllers, presenters, and gateways) that convert data from the format most convenient for the use cases and entities, to the format most convenient for some external agency such as the DB or the Web. In other words, is an entry and exit points to the Use Cases layer. In our example we implemented controllers and presenters together and these are the PostController and the UserController.
 ### Frameworks and Drivers
