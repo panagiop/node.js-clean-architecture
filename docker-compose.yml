@@ -15,7 +15,7 @@ services:
   web:
     build: .
     ports:
-      - 6666:6666
+      - 1234:1234
     environment:
       - MONGO_URL=mongodb://mongo-database:27017/post-clean-code
     depends_on:

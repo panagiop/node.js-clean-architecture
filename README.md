@@ -28,7 +28,7 @@ docker-compose up -d
 ## How to test it
 In order to make sure the app is up and running try to add a user using the following command:
 ```sh
-curl --data "username=randomUserName&password=randomPassword&email=randomUser@123.com" http://localhost:6666/api/v1/users
+curl --data "username=randomUserName&password=randomPassword&email=randomUser@123.com" http://localhost:1234/api/v1/users
 ```
 You should get as a response:
 ```sh
