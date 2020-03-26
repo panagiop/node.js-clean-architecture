@@ -1,4 +1,4 @@
-version: '666'
+version: '1'
 
 networks:
   my-net:
