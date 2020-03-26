@@ -20,6 +20,22 @@ This layer is a set of adapters (controllers, presenters, and gateways) that con
 ### Frameworks and Drivers
 The outermost layer is generally composed of frameworks and tools such as the Database, the Web Framework, etc.
 
+## How to run it (using Docker)
+Make sure you have [docker] installed. At the root folder run the following command:
+```sh
+docker-compose up -d
+```
+## How to test it
+In order to make sure the app is up and running try to add a user using the following command:
+```sh
+curl --data "username=randomUserName&password=randomPassword&email=randomUser@123.com" http://localhost:6666/api/v1/users
+```
+You should get as a response:
+```sh
+"user added"
+```
+
 [Robert C. Martin]: <https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html>
+[docker]: <https://www.docker.com/>  
    
    
