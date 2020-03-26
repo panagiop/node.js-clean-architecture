@@ -1,0 +1,24 @@
+version: '666'
+
+networks:
+  my-net:
+
+services:
+  mongo-database:
+    image: "mongo:latest"
+    ports:
+      - 27017:27017
+    volumes:
+      - ./mongo_data:/data/db
+    networks:
+      - my-net
+  web:
+    build: .
+    ports:
+      - 6666:6666
+    environment:
+      - MONGO_URL=mongodb://mongo-database:27017/post-clean-code
+    depends_on:
+      - mongo-database
+    networks:
+      - my-net

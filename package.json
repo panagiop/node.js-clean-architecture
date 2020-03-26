@@ -5,9 +5,9 @@
   "main": "app.js",
   "scripts": {
     "clean": "rm -rf build && mkdir build",
-    "build-server": "babel -d ./build ./server -s --copy-files",
+    "build-server": "babel --out-dir ./build ./dist-server --source-maps --copy-files",
     "build": "npm run clean && npm run build-server",
-    "start": "pm2 start ./build/app.js -i ${NODE_PROCESSES} --name 'cp.server' --no-daemon",
+    "start": "pm2 start ./build/app.js -i ${NODE_PROCESSES} --name 'web.server' --no-daemon",
     "dev": "NODE_ENV=development nodemon --exec babel-node app.js"
   },
   "author": "panagiop",
