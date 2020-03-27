@@ -2,7 +2,7 @@
 A use case of Clean Architecture in Node.js
 
 ## Overview
-This example is a simple CRUD API application in which a user can create / update / delete / find a post, by using the *Clean Architecture*.
+This example is a simple RESTful API application in which a user can create / update / delete / find a post, by using the *Clean Architecture*.
 
 The objective of *Clean Architecture* by [Robert C. Martin] is the separation of concerns in software. 
 This separation is achieved by dividing the software into layers. Each layer is encapsulated by a higher level layer and the way to communicate between the layers is with the *Dependency Rule*.
@@ -34,6 +34,10 @@ You should get as a response:
 ```sh
 "user added"
 ```
+
+## Further reading
+- https://roystack.home.blog/2019/10/22/node-clean-architecture-deep-dive/
+- https://mannhowie.com/clean-architecture-node
 
 [Robert C. Martin]: <https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html>
 [docker]: <https://www.docker.com/>  
