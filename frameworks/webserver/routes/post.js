@@ -20,6 +20,6 @@ export default function PostRouter(express) {
 
   // DELETE endpoints
   router.route('/:id').delete(controller.deletePostById);
-  
+
   return router;
 }

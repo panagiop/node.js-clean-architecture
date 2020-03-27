@@ -10,7 +10,7 @@ export default function PostController(PostRepository, PostRepositoryImplementat
   const fetchAllPosts = (req, res, next) => {
     FindAll(repository)
       .then(posts => res.json(posts))
-      .catch((error) => next(error))
+      .catch((error) => next(error));
   };
 
   const fetchPostById = (req, res, next) => {

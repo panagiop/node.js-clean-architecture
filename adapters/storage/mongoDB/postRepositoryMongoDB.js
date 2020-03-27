@@ -13,7 +13,7 @@ export default function PostRepositoryMongoDB() {
       isPublished: postEntity.isPublished(),
       userId: postEntity.getUserId()
     });
-    
+
     return newPost.save();
   };
 

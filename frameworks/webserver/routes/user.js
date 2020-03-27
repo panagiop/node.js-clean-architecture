@@ -14,6 +14,6 @@ export default function UserRouter(express) {
 
   // POST enpdpoints
   router.route('/').post(controller.addNewUser);
-  
+
   return router;
 }

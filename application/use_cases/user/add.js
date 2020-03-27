@@ -23,12 +23,12 @@ export default function AddUser(
 
   return userRepository
     .findByProperty({ username: username })
-      .then((userWithUsername) => {
-        if (userWithUsername.length) throw new Error(`User with username: ${username} already exists`);
-        return userRepository.findByProperty({ email: email })
-      })
-      .then((userWithEmail) => {
-        if (userWithEmail.length) throw new Error(`User with email: ${email} already exists`);
-        return userRepository.add(user);
-      })
+    .then((userWithUsername) => {
+      if (userWithUsername.length) throw new Error(`User with username: ${username} already exists`);
+      return userRepository.findByProperty({ email: email });
+    })
+    .then((userWithEmail) => {
+      if (userWithEmail.length) throw new Error(`User with email: ${email} already exists`);
+      return userRepository.add(user);
+    });
 }

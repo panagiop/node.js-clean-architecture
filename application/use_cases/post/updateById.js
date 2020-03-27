@@ -8,8 +8,8 @@ export default function UpdateById(
   isPublished,
   userId,
   postRepository
-  ) {
-    // validate
+) {
+  // validate
   if (!title || !description) {
     throw new Error('title and description fields are mandatory');
   }
@@ -20,12 +20,11 @@ export default function UpdateById(
     isPublished,
     userId
   );
-  
+
   return postRepository
     .findById(id)
     .then((post) => {
       if (!post) throw new Error(`No post found with id: ${id}`);
       return postRepository.updateById(id, updatedPost);
-    })
+    });
 }
-  

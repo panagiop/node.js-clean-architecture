@@ -12,7 +12,7 @@ export default function AddPost(
   if (!title || !description) {
     throw new Error('title and description fields cannot be empty');
   }
-  
+
   const post = Post(
     title,
     description,

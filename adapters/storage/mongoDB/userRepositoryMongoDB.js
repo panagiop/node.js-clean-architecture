@@ -15,7 +15,7 @@ export default function UserRerpositoryMongoDB() {
       role: userEntity.getRole(),
       createdAt: new Date()
     });
-    
+
     return newUser.save();
   };
 

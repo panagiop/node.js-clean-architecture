@@ -3,7 +3,6 @@
         "es6": true,
         "node": true
     },
-    "extends": "eslint:recommended",
     "globals": {
         "Atomics": "readonly",
         "SharedArrayBuffer": "readonly"
@@ -13,5 +12,12 @@
         "sourceType": "module"
     },
     "rules": {
-    }
+        "no-console": "off",
+        "no-underscore-dangle": ["error", { "allowAfterThis": true }],
+        "no-buffer-constructor": "off",
+        "no-restricted-syntax": "off",
+        "object-curly-newline": ["error", { "consistent": true }]
+    },
+    "extends": "airbnb-base/legacy"
+    
 }
