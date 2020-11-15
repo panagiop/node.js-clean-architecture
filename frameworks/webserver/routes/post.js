@@ -1,6 +1,6 @@
 import PostController from '../../../adapters/controllers/postController';
 import PostRepository from '../../../application/repositories/postRepository';
-import PostRepositoryMongoDB from '../../../adapters/storage/mongoDB/postRepositoryMongoDB';
+import PostRepositoryMongoDB from '../../database/mongoDB/repositories/postRepositoryMongoDB';
 
 export default function PostRouter(express) {
   const router = express.Router();

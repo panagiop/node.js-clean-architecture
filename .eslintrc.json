@@ -1,23 +1,22 @@
 {
-    "env": {
-        "es6": true,
-        "node": true
-    },
-    "globals": {
-        "Atomics": "readonly",
-        "SharedArrayBuffer": "readonly"
-    },
-    "parserOptions": {
-        "ecmaVersion": 2018,
-        "sourceType": "module"
-    },
-    "rules": {
-        "no-console": "off",
-        "no-underscore-dangle": ["error", { "allowAfterThis": true }],
-        "no-buffer-constructor": "off",
-        "no-restricted-syntax": "off",
-        "object-curly-newline": ["error", { "consistent": true }]
-    },
-    "extends": "airbnb-base/legacy"
-    
+  "env": {
+    "es6": true,
+    "node": true
+  },
+  "globals": {
+    "Atomics": "readonly",
+    "SharedArrayBuffer": "readonly"
+  },
+  "parserOptions": {
+    "ecmaVersion": 2018,
+    "sourceType": "module"
+  },
+  "rules": {
+    "no-console": "off",
+    "no-underscore-dangle": ["error", { "allowAfterThis": true }],
+    "no-buffer-constructor": "off",
+    "no-restricted-syntax": "off",
+    "object-curly-newline": ["error", { "consistent": true }]
+  },
+  "extends": "airbnb-base/legacy"
 }

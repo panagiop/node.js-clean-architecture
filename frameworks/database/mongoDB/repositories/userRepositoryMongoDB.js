@@ -1,4 +1,4 @@
-import UserModel from '../../../frameworks/database/mongoDB/models/user';
+import UserModel from '../models/user';
 
 export default function UserRerpositoryMongoDB() {
   const findAll = () => UserModel.find();

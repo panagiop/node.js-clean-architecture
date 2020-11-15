@@ -1,4 +1,4 @@
-import PostModel from '../../../frameworks/database/mongoDB/models/post';
+import PostModel from '../models/post';
 
 export default function PostRepositoryMongoDB() {
   const findAll = () => PostModel.find();
