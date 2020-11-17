@@ -5,9 +5,9 @@
   "main": "app.js",
   "scripts": {
     "clean": "rm -rf build && mkdir build",
-    "build-server": "babel --out-dir ./build ./dist-server --source-maps --copy-files",
+    "build-server": "babel --out-dir ./build ../server --source-maps --copy-files --ignore 'node_modules/**/*.js'",
     "build": "npm run clean && npm run build-server",
-    "start": "pm2 start ./build/app.js -i ${NODE_PROCESSES} --name 'web.server' --no-daemon",
+    "start": "pm2 start ./build/app.js -i ${NODE_PROCESSES} --no-daemon",
     "dev": "NODE_ENV=development nodemon --exec babel-node app.js"
   },
   "author": "panagiop",
@@ -17,7 +17,8 @@
     "compression": "^1.7.4",
     "express": "^4.17.1",
     "mongoose": "^5.9.1",
-    "morgan": "^1.9.1"
+    "morgan": "^1.9.1",
+    "pm2": "^4.5.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
