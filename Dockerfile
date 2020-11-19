@@ -3,16 +3,16 @@ FROM        node:12.16.1-alpine as builder
 COPY        package.json /srv/node-clean-architecture/
 WORKDIR     /srv/node-clean-architecture/
 
-RUN         yarn install
+RUN         yarn install --production
 
 COPY        .babelrc /srv/node-clean-architecture/
 COPY        .eslintrc.json /srv/node-clean-architecture/
-COPY        app.js /srv/node-clean-architecture/dist-server/
-COPY        adapters /srv/node-clean-architecture/dist-server/adapters/
-COPY        application /srv/node-clean-architecture/dist-server/application/
-COPY        config /srv/node-clean-architecture/dist-server/config/
-COPY        frameworks /srv/node-clean-architecture/dist-server/frameworks/
-COPY        src /srv/node-clean-architecture/dist-server/src/
+COPY        app.js /srv/node-clean-architecture/
+COPY        adapters /srv/node-clean-architecture/adapters/
+COPY        application /srv/node-clean-architecture/application/
+COPY        config /srv/node-clean-architecture/config/
+COPY        frameworks /srv/node-clean-architecture/frameworks/
+COPY        src /srv/node-clean-architecture/src/
 
 RUN         yarn run build
 
@@ -29,7 +29,6 @@ RUN         npm install -g pm2
 # Copy over code
 WORKDIR     /srv/api/
 COPY        --from=builder /srv/node-clean-architecture/build /srv/api/build
-COPY        --from=builder /srv/node-clean-architecture/node_modules /srv/api/node_modules
 COPY        --from=builder /srv/node-clean-architecture/package.json /srv/api/package.json
 
 RUN         deluser --remove-home node \

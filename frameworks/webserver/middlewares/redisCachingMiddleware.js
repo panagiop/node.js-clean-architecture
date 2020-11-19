@@ -7,7 +7,7 @@ export default function redisCachingMiddleware(redisClient, key) {
         console.log(err);
       }
       if (data) {
-        return res.json(JSON.psrse(data));
+        return res.json(JSON.parse(data));
       }
       return next();
     });

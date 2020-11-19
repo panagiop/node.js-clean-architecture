@@ -12,13 +12,21 @@ services:
       - ./mongo_data:/data/db
     networks:
       - my-net
+  redis-database:
+    image: "redis"
+    ports:
+      - 6379:6379
+    networks:
+    - my-net
   web:
     build: .
     ports:
       - 1234:1234
     environment:
       - MONGO_URL=mongodb://mongo-database:27017/post-clean-code
+      - REDIS_URL=redis://redis-database:6379
     depends_on:
       - mongo-database
+      - redis-database
     networks:
       - my-net
