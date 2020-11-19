@@ -29,7 +29,7 @@ mongod --dbpath <path_to_data/db_folder>
 ```sh
 npm run dev
 ```
-Run the server in production mode by typing the following command:
+* Run the server in production mode by typing the following command:
 ```sh
 npm run start
 ```
