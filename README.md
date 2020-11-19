@@ -20,12 +20,12 @@ This layer is a set of adapters (controllers, presenters, and gateways) that con
 ### Frameworks and Drivers
 The outermost layer is generally composed of frameworks and tools such as the Database, the Web Framework, etc.
 ## How to run it
-Make sure you have [mongoDB] installed. At the terminal run the following command:
+* Make sure you have [mongoDB] installed. At the terminal run the following command:
 ```sh
 mongod --dbpath <path_to_data/db_folder>
 ```
-Make sure [Redis] is also installed and running.<br /><br />
-Run the server in development mode by typing the following command:
+* Make sure [Redis] is also installed and running.<br /><br />
+* Run the server in development mode by typing the following command:
 ```sh
 npm run dev
 ```
@@ -35,16 +35,16 @@ npm run start
 ```
 
 ## How to run it (using Docker)
-Make sure you have [docker] installed. At the root folder run the following command:
+* Make sure you have [docker] installed. At the root folder run the following command:
 ```sh
 docker-compose up -d
 ```
 ## How to test it
-In order to make sure the app is up and running try to add a user using the following command:
+* In order to make sure the app is up and running try to add a user using the following command:
 ```sh
 curl --data "username=randomUserName&password=randomPassword&email=randomUser@123.com" http://localhost:1234/api/v1/users
 ```
-You should get as a response:
+* You should get as a response:
 ```sh
 "user added"
 ```
