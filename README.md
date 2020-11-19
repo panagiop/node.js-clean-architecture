@@ -24,6 +24,7 @@ Make sure you have [mongoDB] installed. At the terminal run the following comman
 ```sh
 mongod --dbpath <path_to_data/db_folder>
 ```
+Make sure [Redis] is also installed and running.<br /><br />
 Run the server in development mode by typing the following command:
 ```sh
 npm run dev
@@ -55,5 +56,6 @@ You should get as a response:
 [Robert C. Martin]: <https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html>
 [docker]: <https://www.docker.com/>  
 [mongoDB]: <https://www.mongodb.com/try/download/community>
+[Redis]: <https://redis.io/download>
    
    
