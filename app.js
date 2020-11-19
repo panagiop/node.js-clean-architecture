@@ -1,22 +1,26 @@
 import express from 'express';
 import mongoose from 'mongoose';
+import redis from 'redis';
 import config from './config/config';
 import expressConfig from './frameworks/webserver/express';
 import routes from './frameworks/webserver/routes';
 import serverConfig from './frameworks/webserver/server';
-import dbConnection from './frameworks/database/mongoDB/connection';
+import mongoDbConnection from './frameworks/database/mongoDB/connection';
+import redisConnection from './frameworks/database/redis/connection';
+// middlewares
+import errorHandlingMiddleware from './frameworks/webserver/middlewares/errorHandlingMiddleware';
 
 const app = express();
 const server = require('http').createServer(app);
 
 // express.js configuration (middlewares etc.)
 expressConfig(app);
-// routes for each endpoint
-routes(app, express);
+
 // server configuration and start
 serverConfig(app, mongoose, server, config).startServer();
+
 // DB configuration and connection create
-dbConnection(mongoose, config, {
+mongoDbConnection(mongoose, config, {
   autoReconnect: true,
   reconnectTries: Number.MAX_VALUE,
   reconnectInterval: 10000,
@@ -24,15 +28,13 @@ dbConnection(mongoose, config, {
   connectTimeoutMS: 1000
 }).connectToMongo();
 
+const redisClient = redisConnection(redis, config).createRedisClient();
+
+// routes for each endpoint
+routes(app, express, redisClient);
+
 // error handling middleware
-// eslint-disable-next-line no-unused-vars
-app.use((err, req, res, next) => {
-  // eslint-disable-next-line no-param-reassign
-  err.statusCode = err.statusCode || 404;
-  return err.customMessage || err.message
-    ? res.status(err.statusCode).json({ status: err.customMessage || err.message })
-    : res.status(err.statusCode).json(err);
-});
+app.use(errorHandlingMiddleware);
 
 // Expose app
 export default app;

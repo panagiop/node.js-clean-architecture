@@ -4,12 +4,16 @@ import FindById from '../../application/use_cases/post/findById';
 import UpdateById from '../../application/use_cases/post/updateById';
 import DeletePost from '../../application/use_cases/post/deleteΒyId';
 
-export default function PostController(PostRepository, PostRepositoryImplementation) {
+export default function PostController(PostRepository, PostRepositoryImplementation, redisClient) {
   const repository = PostRepository(PostRepositoryImplementation());
 
   const fetchAllPosts = (req, res, next) => {
     FindAll(repository)
-      .then(posts => res.json(posts))
+      .then(posts => {
+        // cache the result to redis
+        redisClient.setex('posts_', 120, JSON.stringify(posts));
+        return res.json(posts);
+      })
       .catch((error) => next(error));
   };
 
@@ -22,7 +26,11 @@ export default function PostController(PostRepository, PostRepositoryImplementat
   const addNewPost = (req, res, next) => {
     const { title, description, createdAt, isPublished, userId } = req.body;
     AddPost(title, description, createdAt, isPublished, userId, repository)
-      .then(() => res.json('post added'))
+      .then((post) => {
+        // cache the result to redis
+        redisClient.setex(`post_${post._id.toString()}`, 120, JSON.stringify(post));
+        return res.json('post added');
+      })
       .catch((error) => next(error));
   };
 

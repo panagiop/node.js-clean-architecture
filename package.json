@@ -18,7 +18,8 @@
     "express": "^4.17.1",
     "mongoose": "^5.9.1",
     "morgan": "^1.9.1",
-    "pm2": "^4.5.0"
+    "pm2": "^4.5.0",
+    "redis": "^3.0.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",

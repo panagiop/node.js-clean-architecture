@@ -1,16 +1,17 @@
 import PostController from '../../../adapters/controllers/postController';
 import PostRepository from '../../../application/repositories/postRepository';
 import PostRepositoryMongoDB from '../../database/mongoDB/repositories/postRepositoryMongoDB';
+import redisCachingMiddleware from '../middlewares/redisCachingMiddleware';
 
-export default function PostRouter(express) {
+export default function PostRouter(express, redisClient) {
   const router = express.Router();
 
   // load controller with dependencies
-  const controller = PostController(PostRepository, PostRepositoryMongoDB);
+  const controller = PostController(PostRepository, PostRepositoryMongoDB, redisClient);
 
   // GET endpoints
-  router.route('/').get(controller.fetchAllPosts);
-  router.route('/:id').get(controller.fetchPostById);
+  router.route('/').get(redisCachingMiddleware(redisClient, 'posts'), controller.fetchAllPosts);
+  router.route('/:id').get(redisCachingMiddleware(redisClient, 'post'), controller.fetchPostById);
 
   // POST endpoints
   router.route('/').post(controller.addNewPost);
