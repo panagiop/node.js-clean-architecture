@@ -1,5 +1,5 @@
 # node.js-clean-architecture
-A use case of Clean Architecture in Node.js
+A use case of Clean Architecture in Node.js comprising of Express.js, MongoDB and Redis as the main (but replaceable) infrastructure.
 
 ## Overview
 This example is a simple RESTful API application in which a user can create / update / delete / find a post, by using the *Clean Architecture*.
