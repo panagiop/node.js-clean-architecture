@@ -4,14 +4,26 @@ import FindById from '../../application/use_cases/post/findById';
 import UpdateById from '../../application/use_cases/post/updateById';
 import DeletePost from '../../application/use_cases/post/deleteΒyId';
 
-export default function PostController(PostRepository, PostRepositoryImplementation, redisClient) {
-  const repository = PostRepository(PostRepositoryImplementation());
+export default function PostController(
+  PostDbRepository,
+  PostDbRepositoryImplementation,
+  CachingClient,
+  PostCachingRepository,
+  PostCachingRepositoryImplementation
+) {
+  const repository = PostDbRepository(PostDbRepositoryImplementation());
+  const cachingRepository = PostCachingRepository(PostCachingRepositoryImplementation()(CachingClient));
 
   const fetchAllPosts = (req, res, next) => {
     FindAll(repository)
       .then(posts => {
+        const cachingOptions = {
+          key: 'posts_',
+          expireTimeSec: 120,
+          data: JSON.stringify(posts)
+        };
         // cache the result to redis
-        redisClient.setex('posts_', 120, JSON.stringify(posts));
+        cachingRepository.setCache(cachingOptions);
         return res.json(posts);
       })
       .catch((error) => next(error));
@@ -27,8 +39,13 @@ export default function PostController(PostRepository, PostRepositoryImplementat
     const { title, description, createdAt, isPublished, userId } = req.body;
     AddPost(title, description, createdAt, isPublished, userId, repository)
       .then((post) => {
+        const cachingOptions = {
+          key: 'posts_',
+          expireTimeSec: 120,
+          data: JSON.stringify(post)
+        };
         // cache the result to redis
-        redisClient.setex(`post_${post._id.toString()}`, 120, JSON.stringify(post));
+        cachingRepository.setCache(cachingOptions);
         return res.json('post added');
       })
       .catch((error) => next(error));

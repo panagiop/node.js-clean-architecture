@@ -16,7 +16,8 @@
     "no-underscore-dangle": ["error", { "allowAfterThis": true, "allow": ["_id"] }],
     "no-buffer-constructor": "off",
     "no-restricted-syntax": "off",
-    "object-curly-newline": ["error", { "consistent": true }]
+    "object-curly-newline": ["error", { "consistent": true }],
+    "max-len": ["error", { "code": 120 }]
   },
   "extends": "airbnb-base/legacy"
 }

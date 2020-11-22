@@ -2,8 +2,8 @@ import AddUser from '../../application/use_cases/user/add';
 import FindByProperty from '../../application/use_cases/user/findByProperty';
 import FindById from '../../application/use_cases/user/findById';
 
-export default function PostController(UserRepository, UserRepositoryImplementation) {
-  const repository = UserRepository(UserRepositoryImplementation());
+export default function PostController(UserDbRepository, UserDbRepositoryImplementation) {
+  const repository = UserDbRepository(UserDbRepositoryImplementation());
 
   const fetchUserByProperty = (req, res, next) => {
     let params = {};

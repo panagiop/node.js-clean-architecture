@@ -1,12 +1,12 @@
 import UserController from '../../../adapters/controllers/userController';
-import UserRepository from '../../../application/repositories/userRepository';
-import UserRepositoryMongoDB from '../../database/mongoDB/repositories/userRepositoryMongoDB';
+import UserDbRepository from '../../../application/repositories/userDbRepository';
+import UserDbRepositoryMongoDB from '../../database/mongoDB/repositories/userRepositoryMongoDB';
 
 export default function UserRouter(express) {
   const router = express.Router();
 
   // load controller with dependencies
-  const controller = UserController(UserRepository, UserRepositoryMongoDB);
+  const controller = UserController(UserDbRepository, UserDbRepositoryMongoDB);
 
   // GET enpdpoints
   router.route('/:id').get(controller.fetchUserById);
