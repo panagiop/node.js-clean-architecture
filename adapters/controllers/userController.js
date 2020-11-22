@@ -3,7 +3,7 @@ import FindByProperty from '../../application/use_cases/user/findByProperty';
 import FindById from '../../application/use_cases/user/findById';
 
 export default function PostController(UserDbRepository, UserDbRepositoryImplementation) {
-  const repository = UserDbRepository(UserDbRepositoryImplementation());
+  const dbrepository = UserDbRepository(UserDbRepositoryImplementation());
 
   const fetchUserByProperty = (req, res, next) => {
     let params = {};
@@ -15,20 +15,20 @@ export default function PostController(UserDbRepository, UserDbRepositoryImpleme
       }
     }
 
-    FindByProperty(params, repository)
+    FindByProperty(params, dbrepository)
       .then((user) => res.json(user))
       .catch((error) => next(error));
   };
 
   const fetchUserById = (req, res, next) => {
-    FindById(req.params.id, repository)
+    FindById(req.params.id, dbrepository)
       .then((user) => res.json(user))
       .catch((error) => next(error));
   };
 
   const addNewUser = (req, res, next) => {
     const { username, password, email, role, createdAt } = req.body;
-    AddUser(username, password, email, role, createdAt, repository)
+    AddUser(username, password, email, role, createdAt, dbrepository)
       .then(() => res.json('user added'))
       .catch((error) => next(error));
   };

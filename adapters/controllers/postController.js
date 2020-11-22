@@ -11,11 +11,11 @@ export default function PostController(
   PostCachingRepository,
   PostCachingRepositoryImplementation
 ) {
-  const repository = PostDbRepository(PostDbRepositoryImplementation());
+  const dbrepository = PostDbRepository(PostDbRepositoryImplementation());
   const cachingRepository = PostCachingRepository(PostCachingRepositoryImplementation()(CachingClient));
 
   const fetchAllPosts = (req, res, next) => {
-    FindAll(repository)
+    FindAll(dbrepository)
       .then(posts => {
         const cachingOptions = {
           key: 'posts_',
@@ -30,14 +30,14 @@ export default function PostController(
   };
 
   const fetchPostById = (req, res, next) => {
-    FindById(req.params.id, repository)
+    FindById(req.params.id, dbrepository)
       .then((post) => res.json(post))
       .catch((error) => next(error));
   };
 
   const addNewPost = (req, res, next) => {
     const { title, description, createdAt, isPublished, userId } = req.body;
-    AddPost(title, description, createdAt, isPublished, userId, repository)
+    AddPost(title, description, createdAt, isPublished, userId, dbrepository)
       .then((post) => {
         const cachingOptions = {
           key: 'posts_',
@@ -52,14 +52,14 @@ export default function PostController(
   };
 
   const deletePostById = (req, res, next) => {
-    DeletePost(req.params.id, repository)
+    DeletePost(req.params.id, dbrepository)
       .then((message) => res.json(message))
       .catch((error) => next(error));
   };
 
   const updatePostById = (req, res, next) => {
     const { title, description, createdAt, isPublished, userId } = req.body;
-    UpdateById(req.params.id, title, description, createdAt, userId, isPublished, repository)
+    UpdateById(req.params.id, title, description, createdAt, userId, isPublished, dbrepository)
       .then((message) => res.json(message))
       .catch((error) => next(error));
   };
