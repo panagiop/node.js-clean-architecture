@@ -12,7 +12,7 @@ describe('API', () => {
   let getStub = null;
   let postStub = null;
   let putStub = null;
-  let deleteStub = null;
+  // let deleteStub = null;
 
   beforeEach(() => {
     getStub = sinon.stub(request, 'get');

@@ -13,6 +13,7 @@ COPY        application /srv/node-clean-architecture/application/
 COPY        config /srv/node-clean-architecture/config/
 COPY        frameworks /srv/node-clean-architecture/frameworks/
 COPY        src /srv/node-clean-architecture/src/
+COPY        tests /srv/node-clean-architecture/tests/
 
 RUN         yarn run build
 
