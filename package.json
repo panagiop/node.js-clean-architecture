@@ -8,7 +8,8 @@
     "build-server": "babel --out-dir ./build . --source-maps --copy-files --ignore 'node_modules/**/*.js'",
     "build": "npm run clean && npm run build-server",
     "start": "pm2 start ./build/app.js -i ${NODE_PROCESSES} --no-daemon",
-    "dev": "NODE_ENV=development nodemon --exec babel-node app.js"
+    "dev": "NODE_ENV=development nodemon --exec babel-node app.js",
+    "test": "./node_modules/.bin/mocha --require @babel/register './tests/**/*.test.js' --timeout 30000"
   },
   "author": "panagiop",
   "dependencies": {
@@ -16,6 +17,7 @@
     "@babel/core": "^7.8.4",
     "@babel/node": "^7.8.4",
     "@babel/preset-env": "^7.8.4",
+    "@babel/runtime": "^7.12.5",
     "@godaddy/terminus": "^4.3.1",
     "body-parser": "^1.19.0",
     "compression": "^1.7.4",
@@ -26,10 +28,17 @@
     "redis": "^3.0.2"
   },
   "devDependencies": {
+    "@babel/plugin-transform-runtime": "^7.12.1",
     "babel-eslint": "^10.0.3",
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.20.1",
-    "nodemon": "^2.0.1"
+    "faker": "^5.1.0",
+    "mocha": "^8.2.1",
+    "nodemon": "^2.0.1",
+    "request": "^2.88.2",
+    "sinon": "^9.2.1"
   }
 }
