@@ -18,8 +18,15 @@ export default function PostRouter(express, redisClient) {
   );
 
   // GET endpoints
-  router.route('/').get(redisCachingMiddleware(redisClient, 'posts'), controller.fetchAllPosts);
-  router.route('/:id').get(redisCachingMiddleware(redisClient, 'post'), controller.fetchPostById);
+  router
+    .route('/')
+    .get(
+      redisCachingMiddleware(redisClient, 'posts'),
+      controller.fetchAllPosts
+    );
+  router
+    .route('/:id')
+    .get(redisCachingMiddleware(redisClient, 'post'), controller.fetchPostById);
 
   // POST endpoints
   router.route('/').post(controller.addNewPost);

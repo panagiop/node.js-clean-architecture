@@ -13,13 +13,7 @@ export default function AddPost(
     throw new Error('title and description fields cannot be empty');
   }
 
-  const post = Post(
-    title,
-    description,
-    createdAt,
-    isPublished,
-    userId
-  );
+  const post = Post(title, description, createdAt, isPublished, userId);
 
   return postRepository.add(post);
 }

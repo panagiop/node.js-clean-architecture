@@ -33,7 +33,9 @@ UserSchema.methods.makeSalt = function makeSalt() {
 UserSchema.methods.encryptPassword = function encryptPassword(password) {
   if (!password) return '';
   const salt = new Buffer(this.makeSalt(), 'base64');
-  return crypto.pbkdf2Sync(password, salt, 10000, 64, 'sha512').toString('base64');
+  return crypto
+    .pbkdf2Sync(password, salt, 10000, 64, 'sha512')
+    .toString('base64');
 };
 
 UserSchema.virtual('password')

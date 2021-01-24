@@ -18,7 +18,9 @@
     "no-buffer-constructor": "off",
     "no-restricted-syntax": "off",
     "object-curly-newline": ["error", { "consistent": true }],
-    "max-len": ["error", { "code": 120 }]
+    "max-len": ["error", { "code": 120 }],
+    "prettier/prettier": "error"
   },
-  "extends": "airbnb-base/legacy"
+  "extends": ["prettier", "airbnb-base/legacy"],
+  "plugins": ["prettier"]
 }

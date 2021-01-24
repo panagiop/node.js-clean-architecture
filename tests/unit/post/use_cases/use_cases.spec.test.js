@@ -34,17 +34,24 @@ describe('Use cases', () => {
         stubPost.userId,
         dbRepository
       );
-      const stubRepositoryFindById = sinon.stub(dbRepository, 'findById').returns(correspondingPost);
+      const stubRepositoryFindById = sinon
+        .stub(dbRepository, 'findById')
+        .returns(correspondingPost);
       const post = FindById('5fb1b12a6ac3e23493ac82e4', dbRepository);
       expect(stubRepositoryFindById.calledOnce).to.be.true;
-      sinon.assert.calledWith(stubRepositoryFindById, '5fb1b12a6ac3e23493ac82e4');
+      sinon.assert.calledWith(
+        stubRepositoryFindById,
+        '5fb1b12a6ac3e23493ac82e4'
+      );
       expect(post).to.eql(correspondingPost);
     });
   });
 
   describe('Fetch all posts', () => {
     it('should fetch all the posts succesfully', () => {
-      const stubRepositoryFetchAll = sinon.stub(dbRepository, 'findAll').returns(['post1', 'post2']);
+      const stubRepositoryFetchAll = sinon
+        .stub(dbRepository, 'findAll')
+        .returns(['post1', 'post2']);
       const posts = FindAll(dbRepository);
       expect(stubRepositoryFetchAll.calledOnce).to.be.true;
       expect(posts).to.eql(['post1', 'post2']);
@@ -67,7 +74,9 @@ describe('Use cases', () => {
         stubValue.isPublished,
         stubValue.userId
       );
-      const stubRepositoryAdd = sinon.stub(dbRepository, 'add').returns(pesristedPost);
+      const stubRepositoryAdd = sinon
+        .stub(dbRepository, 'add')
+        .returns(pesristedPost);
       const newPost = AddPost(
         stubValue.title,
         stubValue.description,

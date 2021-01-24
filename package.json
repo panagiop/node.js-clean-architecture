@@ -34,10 +34,13 @@
     "chai-http": "^4.3.0",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-config-prettier": "^7.2.0",
     "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-prettier": "^3.3.1",
     "faker": "^5.1.0",
     "mocha": "^8.2.1",
     "nodemon": "^2.0.1",
+    "prettier": "^2.2.1",
     "request": "^2.88.2",
     "sinon": "^9.2.1"
   }

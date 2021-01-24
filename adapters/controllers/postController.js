@@ -12,11 +12,13 @@ export default function PostController(
   PostCachingRepositoryImplementation
 ) {
   const dbrepository = PostDbRepository(PostDbRepositoryImplementation());
-  const cachingRepository = PostCachingRepository(PostCachingRepositoryImplementation()(CachingClient));
+  const cachingRepository = PostCachingRepository(
+    PostCachingRepositoryImplementation()(CachingClient)
+  );
 
   const fetchAllPosts = (req, res, next) => {
     FindAll(dbrepository)
-      .then(posts => {
+      .then((posts) => {
         const cachingOptions = {
           key: 'posts_',
           expireTimeSec: 120,
@@ -59,7 +61,15 @@ export default function PostController(
 
   const updatePostById = (req, res, next) => {
     const { title, description, createdAt, isPublished, userId } = req.body;
-    UpdateById(req.params.id, title, description, createdAt, userId, isPublished, dbrepository)
+    UpdateById(
+      req.params.id,
+      title,
+      description,
+      createdAt,
+      userId,
+      isPublished,
+      dbrepository
+    )
       .then((message) => res.json(message))
       .catch((error) => next(error));
   };

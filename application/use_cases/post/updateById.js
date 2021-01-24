@@ -13,18 +13,10 @@ export default function UpdateById(
   if (!title || !description) {
     throw new Error('title and description fields are mandatory');
   }
-  const updatedPost = Post(
-    title,
-    description,
-    createdAt,
-    isPublished,
-    userId
-  );
+  const updatedPost = Post(title, description, createdAt, isPublished, userId);
 
-  return postRepository
-    .findById(id)
-    .then((post) => {
-      if (!post) throw new Error(`No post found with id: ${id}`);
-      return postRepository.updateById(id, updatedPost);
-    });
+  return postRepository.findById(id).then((post) => {
+    if (!post) throw new Error(`No post found with id: ${id}`);
+    return postRepository.updateById(id, updatedPost);
+  });
 }
