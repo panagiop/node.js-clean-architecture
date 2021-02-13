@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import crypto from 'crypto';
+import bcrypt from 'bcryptjs';
 
 // eslint-disable-next-line prefer-destructuring
 const Schema = mongoose.Schema;
@@ -32,10 +33,12 @@ UserSchema.methods.makeSalt = function makeSalt() {
 
 UserSchema.methods.encryptPassword = function encryptPassword(password) {
   if (!password) return '';
-  const salt = new Buffer(this.makeSalt(), 'base64');
-  return crypto
-    .pbkdf2Sync(password, salt, 10000, 64, 'sha512')
-    .toString('base64');
+  const salt = bcrypt.genSaltSync(10);
+  return bcrypt.hashSync(password, salt);
+  // const salt = new Buffer(this.makeSalt(), 'base64');
+  // return crypto
+  //   .pbkdf2Sync(password, salt, 10000, 64, 'sha512')
+  //   .toString('base64');
 };
 
 UserSchema.virtual('password')
