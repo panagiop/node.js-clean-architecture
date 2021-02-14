@@ -6,25 +6,29 @@ export default function AddUser(
   email,
   role,
   createdAt,
-  userRepository
+  userRepository,
+  authService
 ) {
   // TODO: add a proper validation (consider using @hapi/joi)
   if (!username || !password || !email) {
     throw new Error('username, password and email fields cannot be empty');
   }
 
-  const user = User(username, password, email, role, createdAt);
+  const user = User(username, authService.encryptPassword(password), email, role, createdAt);
 
   return userRepository
     .findByProperty({ username: username })
     .then((userWithUsername) => {
-      if (userWithUsername.length)
+      if (userWithUsername.length) {
         throw new Error(`User with username: ${username} already exists`);
+      }
       return userRepository.findByProperty({ email: email });
     })
     .then((userWithEmail) => {
-      if (userWithEmail.length)
+      if (userWithEmail.length) {
         throw new Error(`User with email: ${email} already exists`);
+      }
+      console.log(user);
       return userRepository.add(user);
     });
 }

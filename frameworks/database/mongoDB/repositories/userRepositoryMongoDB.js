@@ -10,7 +10,7 @@ export default function UserRerpositoryMongoDB() {
   const add = (userEntity) => {
     const newUser = new UserModel({
       username: userEntity.getUserName(),
-      password: userEntity.getHashedPassword(),
+      password: userEntity.getPassword(),
       email: userEntity.getEmail(),
       role: userEntity.getRole(),
       createdAt: new Date()

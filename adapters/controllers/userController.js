@@ -2,11 +2,14 @@ import AddUser from '../../application/use_cases/user/add';
 import FindByProperty from '../../application/use_cases/user/findByProperty';
 import FindById from '../../application/use_cases/user/findById';
 
-export default function PostController(
+export default function UserController(
   UserDbRepository,
-  UserDbRepositoryImplementation
+  UserDbRepositoryImplementation,
+  AuthService,
+  AuthServiceImpl
 ) {
   const dbrepository = UserDbRepository(UserDbRepositoryImplementation());
+  const authService = AuthService(AuthServiceImpl());
 
   const fetchUserByProperty = (req, res, next) => {
     let params = {};
@@ -31,7 +34,7 @@ export default function PostController(
 
   const addNewUser = (req, res, next) => {
     const { username, password, email, role, createdAt } = req.body;
-    AddUser(username, password, email, role, createdAt, dbrepository)
+    AddUser(username, password, email, role, createdAt, dbrepository, authService)
       .then(() => res.json('user added'))
       .catch((error) => next(error));
   };

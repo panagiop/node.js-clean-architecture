@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import crypto from 'crypto';
 import bcrypt from 'bcryptjs';
 
 // eslint-disable-next-line prefer-destructuring
@@ -10,7 +9,7 @@ const UserSchema = new Schema({
     unique: true,
     index: true
   },
-  hashedPassword: {
+  password: {
     type: String
   },
   email: {
@@ -26,25 +25,6 @@ const UserSchema = new Schema({
   },
   createdAt: Date
 });
-
-UserSchema.methods.makeSalt = function makeSalt() {
-  return crypto.randomBytes(16).toString('base64');
-};
-
-UserSchema.methods.encryptPassword = function encryptPassword(password) {
-  if (!password) return '';
-  const salt = bcrypt.genSaltSync(10);
-  return bcrypt.hashSync(password, salt);
-};
-
-UserSchema.virtual('password')
-  .set(function setPassword(password) {
-    this._password = password;
-    this.hashedPassword = this.encryptPassword(password);
-  })
-  .get(function getPassword() {
-    return this._password;
-  });
 
 const UserModel = mongoose.model('User', UserSchema);
 

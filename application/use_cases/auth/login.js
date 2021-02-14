@@ -6,7 +6,7 @@ export default function Login(email, password, userRepository, authService) {
     if (!user.length) {
       throw new Error(`Invalid credentials`);
     }
-    const isMatch = authService.compare(password, user[0].hashedPassword);
+    const isMatch = authService.compare(password, user[0].password);
     if (!isMatch) {
       throw new Error(`Invalid credentials`);
     }
