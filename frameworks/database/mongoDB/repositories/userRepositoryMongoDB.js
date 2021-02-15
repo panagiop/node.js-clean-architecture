@@ -1,6 +1,6 @@
 import UserModel from '../models/user';
 
-export default function UserRerpositoryMongoDB() {
+export default function UserRepositoryMongoDB() {
   const findAll = () => UserModel.find();
 
   const findByProperty = (params) => UserModel.find(params);
