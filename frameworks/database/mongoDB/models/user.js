@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import bcrypt from 'bcryptjs';
 
 // eslint-disable-next-line prefer-destructuring
 const Schema = mongoose.Schema;
