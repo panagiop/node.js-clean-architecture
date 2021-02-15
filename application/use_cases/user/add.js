@@ -22,7 +22,7 @@ export default function AddUser(
       if (userWithUsername.length) {
         throw new Error(`User with username: ${username} already exists`);
       }
-      return userRepository.findByProperty({ email: email });
+      return userRepository.findByProperty({ email });
     })
     .then((userWithEmail) => {
       if (userWithEmail.length) {

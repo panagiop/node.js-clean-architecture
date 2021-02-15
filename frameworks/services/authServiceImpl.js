@@ -1,6 +1,8 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 
+import config from '../../config/config';
+
 export default function AuthServiceImpl() {
   const encryptPassword = (password) => {
     const salt = bcrypt.genSaltSync(10);
@@ -9,7 +11,7 @@ export default function AuthServiceImpl() {
   const compare = (password, hashedPassword) =>
     bcrypt.compareSync(password, hashedPassword);
   const generateToken = (payload) => {
-    return jwt.sign(payload, 'jkl!±@£!@ghj1237', {
+    return jwt.sign(payload, config.jwtSecret, {
       expiresIn: 360000
     });
   };

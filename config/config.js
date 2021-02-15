@@ -6,5 +6,6 @@ export default {
   },
   redis: {
     uri: process.env.REDIS_URL || 'redis://localhost:6379'
-  }
+  },
+  jwtSecret: process.env.JWT_SECRET || 'jkl!±@£!@ghj1237'
 };
