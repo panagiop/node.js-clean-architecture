@@ -4,6 +4,7 @@ import PostDbRepositoryMongoDB from '../../database/mongoDB/repositories/postRep
 import PostRedisRepository from '../../../application/repositories/postRedisRepository';
 import PostRedisRepositoryImplementation from '../../database/redis/postRepositoryRedis';
 import redisCachingMiddleware from '../middlewares/redisCachingMiddleware';
+import authMiddleware from '../middlewares/authMiddleware';
 
 export default function PostRouter(express, redisClient) {
   const router = express.Router();
@@ -21,21 +22,24 @@ export default function PostRouter(express, redisClient) {
   router
     .route('/')
     .get(
-      redisCachingMiddleware(redisClient, 'posts'),
+      [authMiddleware, redisCachingMiddleware(redisClient, 'posts')],
       controller.fetchAllPosts
     );
   router
     .route('/:id')
-    .get(redisCachingMiddleware(redisClient, 'post'), controller.fetchPostById);
+    .get(
+      [authMiddleware, redisCachingMiddleware(redisClient, 'post')],
+      controller.fetchPostById
+    );
 
   // POST endpoints
-  router.route('/').post(controller.addNewPost);
+  router.route('/').post(authMiddleware, controller.addNewPost);
 
   // PUT endpoints
-  router.route('/:id').put(controller.updatePostById);
+  router.route('/:id').put(authMiddleware, controller.updatePostById);
 
   // DELETE endpoints
-  router.route('/:id').delete(controller.deletePostById);
+  router.route('/:id').delete(authMiddleware, controller.deletePostById);
 
   return router;
 }
