@@ -52,7 +52,7 @@ describe('Use cases', () => {
       const stubRepositoryFetchAll = sinon
         .stub(dbRepository, 'findAll')
         .returns(['post1', 'post2']);
-      const posts = findAll(dbRepository);
+      const posts = findAll('602c13e0cfe08b794e1b287b', dbRepository);
       expect(stubRepositoryFetchAll.calledOnce).to.be.true;
       expect(posts).to.eql(['post1', 'post2']);
     });
