@@ -3,7 +3,7 @@ import bcrypt from 'bcryptjs';
 
 import config from '../../config/config';
 
-export default function authServiceImpl() {
+export default function authService() {
   const encryptPassword = (password) => {
     const salt = bcrypt.genSaltSync(10);
     return bcrypt.hashSync(password, salt);
