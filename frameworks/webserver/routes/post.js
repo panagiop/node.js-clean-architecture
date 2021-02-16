@@ -1,21 +1,21 @@
-import PostController from '../../../adapters/controllers/postController';
-import PostDbRepository from '../../../application/repositories/postDbRepository';
-import PostDbRepositoryMongoDB from '../../database/mongoDB/repositories/postRepositoryMongoDB';
-import PostRedisRepository from '../../../application/repositories/postRedisRepository';
-import PostRedisRepositoryImplementation from '../../database/redis/postRepositoryRedis';
+import postController from '../../../adapters/controllers/postController';
+import postDbRepository from '../../../application/repositories/postDbRepository';
+import postDbRepositoryMongoDB from '../../database/mongoDB/repositories/postRepositoryMongoDB';
+import postRedisRepository from '../../../application/repositories/postRedisRepository';
+import postRedisRepositoryImpl from '../../database/redis/postRepositoryRedis';
 import redisCachingMiddleware from '../middlewares/redisCachingMiddleware';
 import authMiddleware from '../middlewares/authMiddleware';
 
-export default function PostRouter(express, redisClient) {
+export default function postRouter(express, redisClient) {
   const router = express.Router();
 
   // load controller with dependencies
-  const controller = PostController(
-    PostDbRepository,
-    PostDbRepositoryMongoDB,
+  const controller = postController(
+    postDbRepository,
+    postDbRepositoryMongoDB,
     redisClient,
-    PostRedisRepository,
-    PostRedisRepositoryImplementation
+    postRedisRepository,
+    postRedisRepositoryImpl
   );
 
   // GET endpoints

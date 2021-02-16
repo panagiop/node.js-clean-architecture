@@ -1,6 +1,6 @@
-import Post from '../../../src/entities/post';
+import post from '../../../src/entities/post';
 
-export default function AddPost(
+export default function addPost(
   title,
   description,
   createdAt,
@@ -13,7 +13,7 @@ export default function AddPost(
     throw new Error('title and description fields cannot be empty');
   }
 
-  const post = Post(title, description, createdAt, isPublished, userId);
+  const newPost = post(title, description, createdAt, isPublished, userId);
 
-  return postRepository.add(post);
+  return postRepository.add(newPost);
 }

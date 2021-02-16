@@ -1,15 +1,15 @@
-import AddUser from '../../application/use_cases/user/add';
-import FindByProperty from '../../application/use_cases/user/findByProperty';
-import FindById from '../../application/use_cases/user/findById';
+import addUser from '../../application/use_cases/user/add';
+import findByProperty from '../../application/use_cases/user/findByProperty';
+import findById from '../../application/use_cases/user/findById';
 
-export default function UserController(
-  UserDbRepository,
-  UserDbRepositoryImplementation,
-  AuthService,
-  AuthServiceImpl
+export default function userController(
+  userDbRepository,
+  userDbRepositoryImpl,
+  authServiceInterface,
+  authServiceImpl
 ) {
-  const dbrepository = UserDbRepository(UserDbRepositoryImplementation());
-  const authService = AuthService(AuthServiceImpl());
+  const dbRepository = userDbRepository(userDbRepositoryImpl());
+  const authService = authServiceInterface(authServiceImpl());
 
   const fetchUserByProperty = (req, res, next) => {
     let params = {};
@@ -21,20 +21,20 @@ export default function UserController(
       }
     }
 
-    FindByProperty(params, dbrepository)
+    findByProperty(params, dbRepository)
       .then((user) => res.json(user))
       .catch((error) => next(error));
   };
 
   const fetchUserById = (req, res, next) => {
-    FindById(req.params.id, dbrepository)
+    findById(req.params.id, dbRepository)
       .then((user) => res.json(user))
       .catch((error) => next(error));
   };
 
   const addNewUser = (req, res, next) => {
     const { username, password, email, role, createdAt } = req.body;
-    AddUser(username, password, email, role, createdAt, dbrepository, authService)
+    addUser(username, password, email, role, createdAt, dbRepository, authService)
       .then(() => res.json('user added'))
       .catch((error) => next(error));
   };

@@ -1,21 +1,21 @@
-import Login from '../../application/use_cases/auth/login';
+import login from '../../application/use_cases/auth/login';
 
-export default function AuthController(
-  UserDbRepository,
-  UserDbRepositoryImplementation,
-  AuthService,
-  AuthServiceImpl
+export default function authController(
+  userDbRepository,
+  userDbRepositoryImpl,
+  authServiceInterface,
+  authServiceImpl
 ) {
-  const dbRepository = UserDbRepository(UserDbRepositoryImplementation());
-  const authService = AuthService(AuthServiceImpl());
+  const dbRepository = userDbRepository(userDbRepositoryImpl());
+  const authService = authServiceInterface(authServiceImpl());
 
-  const login = (req, res, next) => {
+  const loginUser = (req, res, next) => {
     const { email, password } = req.body;
-    Login(email, password, dbRepository, authService)
+    login(email, password, dbRepository, authService)
       .then((token) => res.json(token))
       .catch((err) => next(err));
   };
   return {
-    login
+    loginUser
   };
 }

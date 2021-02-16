@@ -1,3 +1,3 @@
-export default function FindByProperty(params, userRepository) {
+export default function findByProperty(params, userRepository) {
   return userRepository.findByProperty(params);
 }

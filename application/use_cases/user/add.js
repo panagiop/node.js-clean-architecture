@@ -1,6 +1,6 @@
-import User from '../../../src/entities/user';
+import user from '../../../src/entities/user';
 
-export default function AddUser(
+export default function addUser(
   username,
   password,
   email,
@@ -14,10 +14,16 @@ export default function AddUser(
     throw new Error('username, password and email fields cannot be empty');
   }
 
-  const user = User(username, authService.encryptPassword(password), email, role, createdAt);
+  const newUser = user(
+    username,
+    authService.encryptPassword(password),
+    email,
+    role,
+    createdAt
+  );
 
   return userRepository
-    .findByProperty({ username: username })
+    .findByProperty({ username })
     .then((userWithUsername) => {
       if (userWithUsername.length) {
         throw new Error(`User with username: ${username} already exists`);
@@ -28,7 +34,6 @@ export default function AddUser(
       if (userWithEmail.length) {
         throw new Error(`User with email: ${email} already exists`);
       }
-      console.log(user);
-      return userRepository.add(user);
+      return userRepository.add(newUser);
     });
 }

@@ -1,4 +1,4 @@
-export default function Login(email, password, userRepository, authService) {
+export default function login(email, password, userRepository, authService) {
   if (!email || !password) {
     throw new Error('email and password fields cannot be empty');
   }

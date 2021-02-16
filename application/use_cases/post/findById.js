@@ -1,3 +1,3 @@
-export default function FindById(id, postRepository) {
+export default function findById(id, postRepository) {
   return postRepository.findById(id);
 }

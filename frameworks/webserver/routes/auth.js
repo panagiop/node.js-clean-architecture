@@ -1,22 +1,22 @@
-import AuthController from '../../../adapters/controllers/authController';
-import UserDbRepository from '../../../application/repositories/userDbRepository';
-import UserDbRepositoryMongoDB from '../../database/mongoDB/repositories/userRepositoryMongoDB';
-import AuthService from '../../../application/services/authService';
-import AuthServiceImpl from '../../services/authServiceImpl';
+import authController from '../../../adapters/controllers/authController';
+import userDbRepository from '../../../application/repositories/userDbRepository';
+import userDbRepositoryMongoDB from '../../database/mongoDB/repositories/userRepositoryMongoDB';
+import authServiceInterface from '../../../application/services/authService';
+import authServiceImpl from '../../services/authService';
 
-export default function UserRouter(express) {
+export default function authRouter(express) {
   const router = express.Router();
 
   // load controller with dependencies
-  const controller = AuthController(
-    UserDbRepository,
-    UserDbRepositoryMongoDB,
-    AuthService,
-    AuthServiceImpl
+  const controller = authController(
+    userDbRepository,
+    userDbRepositoryMongoDB,
+    authServiceInterface,
+    authServiceImpl
   );
 
   // POST enpdpoints
-  router.route('/').post(controller.login);
+  router.route('/').post(controller.loginUser);
 
   return router;
 }

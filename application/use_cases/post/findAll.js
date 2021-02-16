@@ -1,3 +1,3 @@
-export default function FindAll(postRepository) {
+export default function findAll(postRepository) {
   return postRepository.findAll();
 }

@@ -1,4 +1,4 @@
-export default function User(username, password, email, role, createdAt) {
+export default function user(username, password, email, role, createdAt) {
   return {
     getUserName: () => username,
     getPassword: () => password,

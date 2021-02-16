@@ -1,4 +1,4 @@
-export default function Post(
+export default function post(
   title,
   description,
   createdAt,
