@@ -1,6 +1,6 @@
 import PostModel from '../models/post';
 
-export default function PostRepositoryMongoDB() {
+export default function postRepositoryMongoDB() {
   const findAll = () => PostModel.find();
 
   const findById = (id) => PostModel.findById(id);
