@@ -66,16 +66,16 @@ export default function PostController(
   };
 
   const updatePostById = (req, res, next) => {
-    const { title, description, createdAt, isPublished, userId } = req.body;
-    updateById(
-      req.params.id,
-      title,
-      description,
-      createdAt,
-      userId,
-      isPublished,
-      dbRepository
-    )
+    const { title, description, isPublished } = req.body;
+
+    updateById({
+      id: req.params.id,
+      title: title,
+      description: description,
+      userId: req.user.id,
+      isPublished: isPublished,
+      postRepository: dbRepository
+    })
       .then((message) => res.json(message))
       .catch((error) => next(error));
   };

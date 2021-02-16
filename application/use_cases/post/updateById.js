@@ -1,6 +1,6 @@
 import post from '../../../src/entities/post';
 
-export default function updateById(
+export default function updateById({
   id,
   title,
   description,
@@ -8,15 +8,17 @@ export default function updateById(
   isPublished,
   userId,
   postRepository
-) {
+}) {
   // validate
   if (!title || !description) {
     throw new Error('title and description fields are mandatory');
   }
-  const updatedPost = post(title, description, createdAt, isPublished, userId);
+  const updatedPost = post({ title, description, createdAt, isPublished, userId });
 
   return postRepository.findById(id).then((post) => {
-    if (!post) throw new Error(`No post found with id: ${id}`);
+    if (!post) {
+      throw new Error(`No post found with id: ${id}`);
+    }
     return postRepository.updateById(id, updatedPost);
   });
 }

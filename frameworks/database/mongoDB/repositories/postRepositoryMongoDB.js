@@ -21,7 +21,6 @@ export default function postRepositoryMongoDB() {
     const updatedPost = {
       title: postEntity.getTitle(),
       description: postEntity.getDescription(),
-      createdAt: new Date(),
       isPublished: postEntity.isPublished()
     };
 
