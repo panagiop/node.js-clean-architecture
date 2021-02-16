@@ -18,7 +18,7 @@ export default function userRouter(express) {
 
   // GET enpdpoints
   router.route('/:id').get(authMiddleware, controller.fetchUserById);
-  router.route('/').get(authMiddleware, controller.fetchUserByProperty);
+  router.route('/').get(authMiddleware, controller.fetchUsersByProperty);
 
   // POST enpdpoints
   router.route('/').post(controller.addNewUser);

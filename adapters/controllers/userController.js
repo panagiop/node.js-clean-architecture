@@ -11,15 +11,17 @@ export default function userController(
   const dbRepository = userDbRepository(userDbRepositoryImpl());
   const authService = authServiceInterface(authServiceImpl());
 
-  const fetchUserByProperty = (req, res, next) => {
+  const fetchUsersByProperty = (req, res, next) => {
     let params = {};
-
     // Dynamically create query params based on endpoint params
     for (let key in req.query) {
       if (Object.prototype.hasOwnProperty.call(req.query, key)) {
         params[key] = req.query[key];
       }
     }
+    // reserved query params (apart from dynamically) for pagination
+    params.page = params.page ? parseInt(params.page) : 1;
+    params.perPage = params.perPage ? parseInt(params.perPage) : 10;
 
     findByProperty(params, dbRepository)
       .then((user) => res.json(user))
@@ -40,7 +42,7 @@ export default function userController(
   };
 
   return {
-    fetchUserByProperty,
+    fetchUsersByProperty,
     fetchUserById,
     addNewUser
   };

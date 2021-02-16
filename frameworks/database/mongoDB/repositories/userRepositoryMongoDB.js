@@ -1,11 +1,16 @@
 import UserModel from '../models/user';
 
 export default function userRepositoryMongoDB() {
-  const findAll = () => UserModel.find();
+  const findByProperty = (params) => {
+    return UserModel.find(omit(params, 'page', 'perPage'))
+      .skip(
+        parseInt(params.perPage) * parseInt(params.page) -
+          parseInt(params.perPage)
+      )
+      .limit(parseInt(params.perPage));
+  };
 
-  const findByProperty = (params) => UserModel.find(params);
-
-  const findById = (id) => UserModel.findById(id);
+  const findById = (id) => UserModel.findById(id).select('-password');
 
   const add = (userEntity) => {
     const newUser = new UserModel({
@@ -19,8 +24,14 @@ export default function userRepositoryMongoDB() {
     return newUser.save();
   };
 
+  // move it to a proper place
+  function omit(obj, ...props) {
+    const result = { ...obj };
+    props.forEach((prop) => delete result[prop]);
+    return result;
+  }
+
   return {
-    findAll,
     findByProperty,
     findById,
     add
