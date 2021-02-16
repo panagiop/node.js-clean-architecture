@@ -17,7 +17,7 @@ export default function PostController(
   );
 
   const fetchAllPosts = (req, res, next) => {
-    findAll(dbRepository)
+    findAll(req.user.id, dbRepository)
       .then((posts) => {
         const cachingOptions = {
           key: 'posts_',
@@ -33,7 +33,12 @@ export default function PostController(
 
   const fetchPostById = (req, res, next) => {
     findById(req.params.id, dbRepository)
-      .then((post) => res.json(post))
+      .then((post) => {
+        if (!post) {
+          throw new Error(`No post found with id: ${req.params.id}`);
+        }
+        res.json(post);
+      })
       .catch((error) => next(error));
   };
 
@@ -61,7 +66,7 @@ export default function PostController(
 
   const deletePostById = (req, res, next) => {
     deletePost(req.params.id, dbRepository)
-      .then((message) => res.json(message))
+      .then((message) => res.json('post sucessfully deleted!'))
       .catch((error) => next(error));
   };
 
