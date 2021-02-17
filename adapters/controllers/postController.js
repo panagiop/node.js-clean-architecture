@@ -16,12 +16,27 @@ export default function PostController(
     postCachingRepositoryImpl()(cachingClient)
   );
 
+  // Fetch all the posts of the logged in user
   const fetchAllPosts = (req, res, next) => {
-    findAll(req.user.id, dbRepository)
+    let params = {};
+
+    // Dynamically created query params based on endpoint params
+    for (let key in req.query) {
+      if (Object.prototype.hasOwnProperty.call(req.query, key)) {
+        params[key] = req.query[key];
+      }
+    }
+    // predefined query params (apart from dynamically) for pagination
+    // and current logged in user
+    params.page = params.page ? parseInt(params.page) : 1;
+    params.perPage = params.perPage ? parseInt(params.perPage) : 1;
+    params.userId = req.user.id;
+
+    findAll(params, dbRepository)
       .then((posts) => {
         const cachingOptions = {
           key: 'posts_',
-          expireTimeSec: 120,
+          expireTimeSec: 30,
           data: JSON.stringify(posts)
         };
         // cache the result to redis
@@ -54,7 +69,7 @@ export default function PostController(
       .then((post) => {
         const cachingOptions = {
           key: 'posts_',
-          expireTimeSec: 120,
+          expireTimeSec: 30,
           data: JSON.stringify(post)
         };
         // cache the result to redis

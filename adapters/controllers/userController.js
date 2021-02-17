@@ -13,7 +13,8 @@ export default function userController(
 
   const fetchUsersByProperty = (req, res, next) => {
     let params = {};
-    // Dynamically create query params based on endpoint params
+
+    // Dynamically created query params based on endpoint params
     for (let key in req.query) {
       if (Object.prototype.hasOwnProperty.call(req.query, key)) {
         params[key] = req.query[key];
