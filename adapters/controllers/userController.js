@@ -1,5 +1,6 @@
 import addUser from '../../application/use_cases/user/add';
 import findByProperty from '../../application/use_cases/user/findByProperty';
+import countAll from '../../application/use_cases/user/countAll';
 import findById from '../../application/use_cases/user/findById';
 
 export default function userController(
@@ -13,6 +14,7 @@ export default function userController(
 
   const fetchUsersByProperty = (req, res, next) => {
     let params = {};
+    let response = {};
 
     // Dynamically created query params based on endpoint params
     for (let key in req.query) {
@@ -20,12 +22,21 @@ export default function userController(
         params[key] = req.query[key];
       }
     }
-    // reserved query params (apart from dynamically) for pagination
+    // predefined query params (apart from dynamically) for pagination
     params.page = params.page ? parseInt(params.page) : 1;
     params.perPage = params.perPage ? parseInt(params.perPage) : 10;
 
     findByProperty(params, dbRepository)
-      .then((user) => res.json(user))
+      .then((user) => {
+        response.user = user;
+        return countAll(params, dbRepository);
+      })
+      .then((totalItems) => {
+        response.totalItems = totalItems;
+        response.totalPages = Math.ceil(totalItems / params.perPage);
+        response.itemsPerPage = params.perPage;
+        return res.json(response);
+      })
       .catch((error) => next(error));
   };
 

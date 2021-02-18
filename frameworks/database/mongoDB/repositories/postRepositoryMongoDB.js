@@ -10,6 +10,10 @@ export default function postRepositoryMongoDB() {
       .limit(parseInt(params.perPage));
   }
 
+  const countAll = (params) => {
+    return PostModel.countDocuments(omit(params, 'page', 'perPage'));
+  }
+
   const findById = (id) => PostModel.findById(id);
 
   const add = (postEntity) => {
@@ -48,6 +52,7 @@ export default function postRepositoryMongoDB() {
 
   return {
     findAll,
+    countAll,
     findById,
     add,
     updateById,

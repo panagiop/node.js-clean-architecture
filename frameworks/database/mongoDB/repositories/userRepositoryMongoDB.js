@@ -10,6 +10,10 @@ export default function userRepositoryMongoDB() {
       .limit(parseInt(params.perPage));
   };
 
+  const countAll = (params) => {
+    return UserModel.countDocuments(omit(params, 'page', 'perPage'));
+  }
+
   const findById = (id) => UserModel.findById(id).select('-password');
 
   const add = (userEntity) => {
@@ -33,6 +37,7 @@ export default function userRepositoryMongoDB() {
 
   return {
     findByProperty,
+    countAll,
     findById,
     add
   };

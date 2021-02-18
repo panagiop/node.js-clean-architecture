@@ -1,4 +1,5 @@
 import findAll from '../../application/use_cases/post/findAll';
+import countAll from '../../application/use_cases/post/countAll';
 import addPost from '../../application/use_cases/post/add';
 import findById from '../../application/use_cases/post/findById';
 import updateById from '../../application/use_cases/post/updateById';
@@ -19,6 +20,7 @@ export default function PostController(
   // Fetch all the posts of the logged in user
   const fetchAllPosts = (req, res, next) => {
     let params = {};
+    let response = {};
 
     // Dynamically created query params based on endpoint params
     for (let key in req.query) {
@@ -29,11 +31,12 @@ export default function PostController(
     // predefined query params (apart from dynamically) for pagination
     // and current logged in user
     params.page = params.page ? parseInt(params.page) : 1;
-    params.perPage = params.perPage ? parseInt(params.perPage) : 1;
+    params.perPage = params.perPage ? parseInt(params.perPage) : 10;
     params.userId = req.user.id;
 
     findAll(params, dbRepository)
       .then((posts) => {
+        response.posts = posts;
         const cachingOptions = {
           key: 'posts_',
           expireTimeSec: 30,
@@ -41,7 +44,13 @@ export default function PostController(
         };
         // cache the result to redis
         cachingRepository.setCache(cachingOptions);
-        return res.json(posts);
+        return countAll(params, dbRepository);
+      })
+      .then((totalItems) => {
+        response.totalItems = totalItems;
+        response.totalPages = Math.ceil(totalItems / params.perPage);
+        response.itemsPerPage = params.perPage;
+        return res.json(response);
       })
       .catch((error) => next(error));
   };
