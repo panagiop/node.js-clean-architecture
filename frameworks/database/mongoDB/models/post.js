@@ -22,5 +22,16 @@ const PostsSchema = new Schema({
   }
 });
 
+PostsSchema.index({ userId: 1, title: 1 });
+PostsSchema.index({ userId: 1, description: 1 });
+PostsSchema.index({ userId: 1, createdAt: 1 });
+PostsSchema.index({ userId: 1, isPublished: 1 });
+
 const PostModel = mongoose.model('Post', PostsSchema);
+
+PostModel.ensureIndexes((err) => {
+  if (err) { return err; }
+  return true;
+});
+
 export default PostModel;

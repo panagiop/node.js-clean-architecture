@@ -5,8 +5,7 @@ const Schema = mongoose.Schema;
 const UserSchema = new Schema({
   username: {
     type: String,
-    unique: true,
-    index: true
+    unique: true
   },
   password: {
     type: String
@@ -15,7 +14,6 @@ const UserSchema = new Schema({
     type: String,
     required: true,
     unique: true,
-    index: true,
     lowercase: true
   },
   role: {
@@ -25,6 +23,13 @@ const UserSchema = new Schema({
   createdAt: Date
 });
 
+UserSchema.index({ role: 1 });
+
 const UserModel = mongoose.model('User', UserSchema);
+
+UserModel.ensureIndexes((err) => {
+  if (err) { return err; }
+  return true;
+});
 
 export default UserModel;
