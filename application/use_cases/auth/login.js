@@ -1,14 +1,20 @@
 export default function login(email, password, userRepository, authService) {
   if (!email || !password) {
-    throw new Error('email and password fields cannot be empty');
+    const error = new Error('email and password fields cannot be empty');
+    error.statusCode = 401;
+    throw error;
   }
   return userRepository.findByProperty({ email }).then((user) => {
     if (!user.length) {
-      throw new Error(`Invalid credentials`);
+      const error = new Error('Invalid email or password');
+      error.statusCode = 401;
+      throw error;
     }
     const isMatch = authService.compare(password, user[0].password);
     if (!isMatch) {
-      throw new Error(`Invalid credentials`);
+      const error = new Error('Invalid email or password');
+      error.statusCode = 401;
+      throw error;
     }
     const payload = {
       user: {
