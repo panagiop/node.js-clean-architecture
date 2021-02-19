@@ -5,6 +5,9 @@ export default function errorHandlingMiddlware(err, req, res, next) {
   return err.customMessage || err.message
     ? res
         .status(err.statusCode)
-        .json({ status: err.statusCode, message: err.customMessage || err.message })
+        .json({
+          status: err.statusCode,
+          message: err.customMessage || err.message
+        })
     : res.status(err.statusCode).json({ status: err.statusCode, message: err });
 }
