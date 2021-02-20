@@ -23,8 +23,8 @@ export default function userController(
       }
     }
     // predefined query params (apart from dynamically) for pagination
-    params.page = params.page ? parseInt(params.page, 10) : 1;
-    params.perPage = params.perPage ? parseInt(params.perPage, 10) : 10;
+    params.page = params.page ? parseInt(params.page) : 1;
+    params.perPage = params.perPage ? parseInt(params.perPage) : 10;
 
     findByProperty(params, dbRepository)
       .then((user) => {
