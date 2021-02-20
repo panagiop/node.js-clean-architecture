@@ -3,6 +3,11 @@
   "version": "1.0.0",
   "description": "app",
   "main": "app.js",
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint"
+    }
+  },
   "scripts": {
     "clean": "rm -rf build && mkdir build",
     "build-server": "babel --out-dir ./build . --source-maps --copy-files --ignore 'node_modules/**/*.js'",
@@ -11,11 +16,6 @@
     "dev": "NODE_ENV=development nodemon --exec babel-node app.js",
     "test": "./node_modules/.bin/mocha --require @babel/register './tests/**/*.test.js' --timeout 30000",
     "lint": "./node_modules/.bin/eslint --ignore-path .gitignore ."
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run lint"
-    }
   },
   "author": "panagiop",
   "dependencies": {
