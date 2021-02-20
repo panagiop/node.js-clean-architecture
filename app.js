@@ -22,6 +22,8 @@ serverConfig(app, mongoose, server, config).startServer();
 // DB configuration and connection create
 mongoDbConnection(mongoose, config, {
   autoIndex: false,
+  useCreateIndex: true,
+  useNewUrlParser: true,
   autoReconnect: true,
   reconnectTries: Number.MAX_VALUE,
   reconnectInterval: 10000,

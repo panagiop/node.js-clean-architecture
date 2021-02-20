@@ -36,6 +36,6 @@ export default function connection(mongoose, config, options) {
   });
 
   return {
-    connectToMongo,
+    connectToMongo
   };
 }
