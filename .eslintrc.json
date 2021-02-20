@@ -24,6 +24,6 @@
     "operator-linebreak": "off",
     "prettier/prettier": "error"
   },
-  "extends": ["prettier", "airbnb-base/legacy"],
+  "extends": ["airbnb-base/legacy", "prettier"],
   "plugins": ["prettier"]
 }
