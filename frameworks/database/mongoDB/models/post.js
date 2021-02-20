@@ -30,7 +30,9 @@ PostsSchema.index({ userId: 1, isPublished: 1 });
 const PostModel = mongoose.model('Post', PostsSchema);
 
 PostModel.ensureIndexes((err) => {
-  if (err) { return err; }
+  if (err) {
+    return err;
+  }
   return true;
 });
 

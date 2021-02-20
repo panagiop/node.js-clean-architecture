@@ -19,6 +19,9 @@
     "no-restricted-syntax": "off",
     "object-curly-newline": ["error", { "consistent": true }],
     "max-len": ["error", { "code": 120 }],
+    "implicit-arrow-linebreak": "off",
+    "indent": "off",
+    "operator-linebreak": "off",
     "prettier/prettier": "error"
   },
   "extends": ["prettier", "airbnb-base/legacy"],

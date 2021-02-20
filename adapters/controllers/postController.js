@@ -30,8 +30,8 @@ export default function PostController(
     }
     // predefined query params (apart from dynamically) for pagination
     // and current logged in user
-    params.page = params.page ? parseInt(params.page) : 1;
-    params.perPage = params.perPage ? parseInt(params.perPage) : 10;
+    params.page = params.page ? parseInt(params.page, 10) : 1;
+    params.perPage = params.perPage ? parseInt(params.perPage, 10) : 10;
     params.userId = req.user.id;
 
     findAll(params, dbRepository)
@@ -90,7 +90,7 @@ export default function PostController(
 
   const deletePostById = (req, res, next) => {
     deletePost(req.params.id, dbRepository)
-      .then((message) => res.json('post sucessfully deleted!'))
+      .then(() => res.json('post sucessfully deleted!'))
       .catch((error) => next(error));
   };
 

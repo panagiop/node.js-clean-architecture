@@ -1,18 +1,21 @@
 import PostModel from '../models/post';
 
+function omit(obj, ...props) {
+  const result = { ...obj };
+  props.forEach((prop) => delete result[prop]);
+  return result;
+}
+
 export default function postRepositoryMongoDB() {
   const findAll = (params) => {
     return PostModel.find(omit(params, 'page', 'perPage'))
-      .skip(
-        parseInt(params.perPage) * parseInt(params.page) -
-          parseInt(params.perPage)
-      )
-      .limit(parseInt(params.perPage));
-  }
+      .skip(params.perPage * params.page - params.perPage)
+      .limit(params.perPage);
+  };
 
   const countAll = (params) => {
     return PostModel.countDocuments(omit(params, 'page', 'perPage'));
-  }
+  };
 
   const findById = (id) => PostModel.findById(id);
 
@@ -43,12 +46,6 @@ export default function postRepositoryMongoDB() {
   };
 
   const deleteById = (id) => PostModel.findByIdAndRemove(id);
-
-  function omit(obj, ...props) {
-    const result = { ...obj };
-    props.forEach((prop) => delete result[prop]);
-    return result;
-  }
 
   return {
     findAll,

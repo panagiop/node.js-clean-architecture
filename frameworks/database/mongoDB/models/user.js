@@ -28,7 +28,9 @@ UserSchema.index({ role: 1 });
 const UserModel = mongoose.model('User', UserSchema);
 
 UserModel.ensureIndexes((err) => {
-  if (err) { return err; }
+  if (err) {
+    return err;
+  }
   return true;
 });
 

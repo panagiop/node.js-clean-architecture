@@ -2,6 +2,7 @@
 import sinon from 'sinon';
 import request from 'request';
 import chai from 'chai';
+/* eslint no-unused-vars: "off" */
 const should = chai.should();
 
 import posts from '../../fixtures/posts';
@@ -12,19 +13,16 @@ describe('API', () => {
   let getStub = null;
   let postStub = null;
   let putStub = null;
-  let deleteStub = null;
 
   beforeEach(() => {
     getStub = sinon.stub(request, 'get');
     postStub = sinon.stub(request, 'post');
     putStub = sinon.stub(request, 'put');
-    deleteStub = sinon.stub(request, 'delete');
   });
   afterEach(() => {
     request.get.restore();
     request.post.restore();
     request.put.restore();
-    request.delete.restore();
   });
 
   describe('GET /api/v1/posts', () => {
