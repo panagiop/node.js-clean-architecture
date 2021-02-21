@@ -9,7 +9,7 @@
     "SharedArrayBuffer": "readonly"
   },
   "parserOptions": {
-    "ecmaVersion": 2018,
+    "ecmaVersion": 2020,
     "sourceType": "module"
   },
   "rules": {
@@ -24,6 +24,6 @@
     "operator-linebreak": "off",
     "prettier/prettier": "error"
   },
-  "extends": ["airbnb-base/legacy", "prettier"],
+  "extends": ["airbnb-base", "prettier"],
   "plugins": ["prettier"]
 }

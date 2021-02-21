@@ -8,15 +8,13 @@ function omit(obj, ...props) {
 }
 
 export default function userRepositoryMongoDB() {
-  const findByProperty = (params) => {
-    return UserModel.find(omit(params, 'page', 'perPage'))
+  const findByProperty = (params) =>
+    UserModel.find(omit(params, 'page', 'perPage'))
       .skip(params.perPage * params.page - params.perPage)
       .limit(params.perPage);
-  };
 
-  const countAll = (params) => {
-    return UserModel.countDocuments(omit(params, 'page', 'perPage'));
-  };
+  const countAll = (params) =>
+    UserModel.countDocuments(omit(params, 'page', 'perPage'));
 
   const findById = (id) => UserModel.findById(id).select('-password');
 

@@ -5,7 +5,7 @@ import findById from '../../application/use_cases/post/findById';
 import updateById from '../../application/use_cases/post/updateById';
 import deletePost from '../../application/use_cases/post/deleteΒyId';
 
-export default function PostController(
+export default function postController(
   postDbRepository,
   postDbRepositoryImpl,
   cachingClient,
@@ -19,11 +19,11 @@ export default function PostController(
 
   // Fetch all the posts of the logged in user
   const fetchAllPosts = (req, res, next) => {
-    let params = {};
-    let response = {};
+    const params = {};
+    const response = {};
 
     // Dynamically created query params based on endpoint params
-    for (let key in req.query) {
+    for (const key in req.query) {
       if (Object.prototype.hasOwnProperty.call(req.query, key)) {
         params[key] = req.query[key];
       }
@@ -70,8 +70,8 @@ export default function PostController(
     const { title, description } = req.body;
 
     addPost({
-      title: title,
-      description: description,
+      title,
+      description,
       userId: req.user.id,
       postRepository: dbRepository
     })
@@ -99,10 +99,10 @@ export default function PostController(
 
     updateById({
       id: req.params.id,
-      title: title,
-      description: description,
+      title,
+      description,
       userId: req.user.id,
-      isPublished: isPublished,
+      isPublished,
       postRepository: dbRepository
     })
       .then((message) => res.json(message))

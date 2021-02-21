@@ -2,10 +2,10 @@
 import sinon from 'sinon';
 import request from 'request';
 import chai from 'chai';
-/* eslint no-unused-vars: "off" */
-const should = chai.should();
 
 import posts from '../../fixtures/posts';
+/* eslint no-unused-vars: "off" */
+const should = chai.should();
 
 const base = 'http://localhost:1234';
 

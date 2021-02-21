@@ -2,13 +2,14 @@
 import chai from 'chai';
 import sinon from 'sinon';
 import faker from 'faker';
-const expect = chai.expect;
 
 import post from '../../../../src/entities/post';
 import addPost from '../../../../application/use_cases/post/add';
 import findAll from '../../../../application/use_cases/post/findAll';
 import findById from '../../../../application/use_cases/post/findById';
 import postDbRepository from '../../../../application/repositories/postDbRepository';
+
+const { expect } = chai;
 
 let dbRepository = null;
 

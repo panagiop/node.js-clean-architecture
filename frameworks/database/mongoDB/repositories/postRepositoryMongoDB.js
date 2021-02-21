@@ -7,15 +7,13 @@ function omit(obj, ...props) {
 }
 
 export default function postRepositoryMongoDB() {
-  const findAll = (params) => {
-    return PostModel.find(omit(params, 'page', 'perPage'))
+  const findAll = (params) =>
+    PostModel.find(omit(params, 'page', 'perPage'))
       .skip(params.perPage * params.page - params.perPage)
       .limit(params.perPage);
-  };
 
-  const countAll = (params) => {
-    return PostModel.countDocuments(omit(params, 'page', 'perPage'));
-  };
+  const countAll = (params) =>
+    PostModel.countDocuments(omit(params, 'page', 'perPage'));
 
   const findById = (id) => PostModel.findById(id);
 

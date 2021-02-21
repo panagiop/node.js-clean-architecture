@@ -7,7 +7,7 @@ export default function connection(redis, config) {
   });
 
   createRedisClient().on('error', (err) => {
-    console.log('Error ' + err);
+    console.log(`Error  ${err}`);
   });
 
   return {

@@ -14,11 +14,10 @@ export default function authService() {
 
   const verify = (token) => jwt.verify(token, config.jwtSecret);
 
-  const generateToken = (payload) => {
-    return jwt.sign(payload, config.jwtSecret, {
+  const generateToken = (payload) =>
+    jwt.sign(payload, config.jwtSecret, {
       expiresIn: 360000
     });
-  };
 
   return {
     encryptPassword,
