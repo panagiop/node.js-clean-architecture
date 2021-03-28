@@ -27,8 +27,8 @@ export default function userController(
     params.perPage = params.perPage ? parseInt(params.perPage, 10) : 10;
 
     findByProperty(params, dbRepository)
-      .then((user) => {
-        response.user = user;
+      .then((users) => {
+        response.users = users;
         return countAll(params, dbRepository);
       })
       .then((totalItems) => {
@@ -57,7 +57,7 @@ export default function userController(
       dbRepository,
       authService
     )
-      .then(() => res.json('user added'))
+      .then((user) => res.json(user))
       .catch((error) => next(error));
   };
 
