@@ -48,6 +48,9 @@ curl --data "username=randomUserName&password=randomPassword&email=randomUser@12
 ```sh
 "user added"
 ```
+## API documentation
+https://documenter.getpostman.com/view/1551953/TzCJgpnb
+
 
 ## Further reading
 - https://roystack.home.blog/2019/10/22/node-clean-architecture-deep-dive/
