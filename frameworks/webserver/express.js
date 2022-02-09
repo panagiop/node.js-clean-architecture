@@ -1,8 +1,12 @@
 import morgan from 'morgan';
 import compression from 'compression';
 import bodyParser from 'body-parser';
+import helmet from 'helmet';
 
 export default function expressConfig(app) {
+  // security middleware
+  app.use(helmet());
+
   app.use(compression());
   app.use(bodyParser.json({ limit: '50mb' }));
   app.use(
