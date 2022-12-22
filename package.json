@@ -30,7 +30,7 @@
     "compression": "^1.7.4",
     "express": "^4.17.1",
     "helmet": "^5.0.2",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "mongoose": "^5.11.17",
     "morgan": "^1.10.0",
     "pm2": "^5.1.2",
