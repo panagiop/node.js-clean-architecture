@@ -1,4 +1,4 @@
-FROM        node:18.15-alpine as builder
+FROM        node:18.16.0-alpine as builder
 
 COPY        package.json /srv/node-clean-architecture/
 WORKDIR     /srv/node-clean-architecture/
@@ -17,7 +17,7 @@ COPY        tests /srv/node-clean-architecture/tests/
 
 RUN         yarn run build
 
-FROM        node:18.15-alpine
+FROM        node:18.16.0-alpine
 
 
 ENV         HTTP_MODE http
