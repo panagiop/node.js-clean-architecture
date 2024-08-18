@@ -1,5 +1,4 @@
-FROM        node:22.5.1-alpine as builder
-
+FROM        node:22.6-alpine as builder
 COPY        package.json /srv/node-clean-architecture/
 WORKDIR     /srv/node-clean-architecture/
 
@@ -17,8 +16,7 @@ COPY        tests /srv/node-clean-architecture/tests/
 
 RUN         yarn run build
 
-FROM        node:22.5.1-alpine
-
+FROM        node:22.6-alpine
 
 ENV         HTTP_MODE http
 ARG         NODE_PROCESSES=2
