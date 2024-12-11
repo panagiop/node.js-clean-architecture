@@ -1,4 +1,5 @@
 FROM        node:22.12.0-alpine as builder
+
 COPY        package.json /srv/node-clean-architecture/
 WORKDIR     /srv/node-clean-architecture/
 
