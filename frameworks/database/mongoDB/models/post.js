@@ -19,6 +19,10 @@ const PostsSchema = new Schema({
   userId: {
     type: Schema.Types.ObjectId,
     ref: 'User'
+  },
+  tags: {
+    type: [String],
+    default: []
   }
 });
 
@@ -26,6 +30,7 @@ PostsSchema.index({ userId: 1, title: 1 });
 PostsSchema.index({ userId: 1, description: 1 });
 PostsSchema.index({ userId: 1, createdAt: 1 });
 PostsSchema.index({ userId: 1, isPublished: 1 });
+PostsSchema.index({ userId: 1, tags: 1 });
 
 const PostModel = mongoose.model('Post', PostsSchema);
 

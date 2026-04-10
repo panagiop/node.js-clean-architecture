@@ -3,13 +3,15 @@ export default function post({
   description,
   createdAt,
   isPublished = false,
-  userId
+  userId,
+  tags = []
 }) {
   return {
     getTitle: () => title,
     getDescription: () => description,
     getCreatedAt: () => createdAt,
     isPublished: () => isPublished,
-    getUserId: () => userId
+    getUserId: () => userId,
+    getTags: () => tags
   };
 }

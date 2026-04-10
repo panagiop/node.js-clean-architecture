@@ -42,6 +42,28 @@ docker-compose up -d
 ### API documentation
 https://documenter.getpostman.com/view/1551953/TzCJgpnb
 
+### Posts API: tags, search, and pagination
+
+Posts support an optional `tags` array on **create** and **update** (JSON body). Tags are normalized server-side: trimmed, lowercased, de-duplicated, length-limited, and capped per post so clients cannot send unbounded arrays.
+
+**List posts** (`GET` with auth, same route as before) accepts extra query parameters:
+
+| Query | Purpose |
+| ----- | ------- |
+| `page` | 1-based page index (default `1`). |
+| `perPage` | Page size (default `10`, maximum `100` to limit load on MongoDB). |
+| `q` | Case-insensitive substring search over **title** and **description** (regex-safe; special characters are escaped). |
+| `tag` | Filter to posts whose `tags` array contains this single tag (normalized the same way as stored tags). |
+
+`userId` is still taken from the authenticated user; list results are scoped to that user as before.
+
+**Caching:** the post list response may be cached in Redis under the key used by `redisCachingMiddleware`. After **add**, **update**, or **delete**, that list cache key is cleared so filters and tags stay consistent with the database.
+
+Implementation notes for contributors:
+
+- Tag rules live in `src/entities/normalizePostTags.js`.
+- Mongo filters for `q` / `tag` are built in `frameworks/database/mongoDB/repositories/postQueryBuilder.js`.
+- The `Post` mongoose schema stores `tags` as `[String]` with a compound index on `userId` + `tags` for typical list-by-tag queries.
 
 ### Further reading
 - https://roystack.home.blog/2019/10/22/node-clean-architecture-deep-dive/

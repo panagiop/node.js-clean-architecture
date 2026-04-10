@@ -1,19 +1,18 @@
 import PostModel from '../models/post';
-
-function omit(obj, ...props) {
-  const result = { ...obj };
-  props.forEach((prop) => delete result[prop]);
-  return result;
-}
+import buildPostMongoFilter from './postQueryBuilder';
 
 export default function postRepositoryMongoDB() {
-  const findAll = (params) =>
-    PostModel.find(omit(params, 'page', 'perPage'))
+  const findAll = (params) => {
+    const filter = buildPostMongoFilter(params);
+    return PostModel.find(filter)
       .skip(params.perPage * params.page - params.perPage)
       .limit(params.perPage);
+  };
 
-  const countAll = (params) =>
-    PostModel.countDocuments(omit(params, 'page', 'perPage'));
+  const countAll = (params) => {
+    const filter = buildPostMongoFilter(params);
+    return PostModel.countDocuments(filter);
+  };
 
   const findById = (id) => PostModel.findById(id);
 
@@ -23,7 +22,8 @@ export default function postRepositoryMongoDB() {
       description: postEntity.getDescription(),
       createdAt: new Date(),
       isPublished: postEntity.isPublished(),
-      userId: postEntity.getUserId()
+      userId: postEntity.getUserId(),
+      tags: postEntity.getTags()
     });
 
     return newPost.save();
@@ -33,7 +33,8 @@ export default function postRepositoryMongoDB() {
     const updatedPost = {
       title: postEntity.getTitle(),
       description: postEntity.getDescription(),
-      isPublished: postEntity.isPublished()
+      isPublished: postEntity.isPublished(),
+      tags: postEntity.getTags()
     };
 
     return PostModel.findOneAndUpdate(
